@@ -13,3 +13,19 @@ class Movie:
     def getImbID(self):
         return self.imdbID
     
+    def setRuntime(self, runTime):
+        self.runtTime = runTime
+    
+    def getRuntime(self):
+        return self.runtTime
+    
+    def setProduction(self, production):
+        self.production = production
+    
+    def getActors(self):
+        return self.actors
+
+    def setActors(self, actors):
+        self.actors = actors
+    
+    
