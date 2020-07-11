@@ -31,4 +31,8 @@ class Movie:
     def setActors(self, actors):
         self.actors = actors
     
+    def string(self):
+        return "Title: " + str(self.title) + ", Year: " + str(self.year) + ", imdbID: " + str(self.imdbID) + ", runtime: " + str(self.runtTime) + ", Production: " + str(self.production) + ", actors: " + str(self.actors)
+
+    
     
