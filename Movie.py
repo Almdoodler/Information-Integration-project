@@ -21,6 +21,9 @@ class Movie:
     
     def setProduction(self, production):
         self.production = production
+
+    def getProduction(self):
+        return self.production
     
     def getActors(self):
         return self.actors
