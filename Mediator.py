@@ -12,26 +12,24 @@ if __name__ == "__main__":
     r1 = sorted(r1, key=operator.attrgetter("imdbID"), reverse=False)
     r2 = tmdb.search("john wick")
     r1 = sorted(r1, key=operator.attrgetter("imdbID"), reverse=False)    
-    print("r1 ", len(r1))
-    print("r2 ", len(r2))
-    print("all ", len(r1) + len(r2))
-
+    print("Result length omdb (r1)", len(r1))
+    print("Result length tmdb (r2)", len(r2))
+    print("number of results ", len(r1) + len(r2))
+    
+    "Kombiniert die movies von r1 und r2 nach der imdb id"
     for i in reversed(range(0, len(r1))):
         for j in reversed(range(0, len(r2))):
-            #print(r1[i].getImbID(), " vs ", r2[j].getImbID())
             if r1[i].getImbID() == r2[j].getImbID():
-                print("same")
-                movies.append(r1[i])
-                del(r1[i])
                 del(r2[j])
                 break
-    print("r1 ", len(r1))
-    print("r2 ", len(r2))
-    print("m ", len(movies))
-    print("all ", len(r1) + len(r2) + len(movies))
+    print("Result length omdb", len(r1))
+    print("Result length tmdb ", len(r2))
+    print("number of results ", len(r1) + len(r2))
 
+    "Kombiniert die movies nach similiraity measure"
     sm = SimilarityMeasure()
     similarities = [[-1 for x in range(len(r1))] for y in range(len(r2))]
+    "Berechnet für jeden  film in r2 die Ähnlichkeit zu den Filmen in r1 und schreibt den Wert similarities ein"
     for j in range(0, len(r2)):
         similarity = 0
         for i in range(0, len(r1)):
@@ -53,8 +51,8 @@ if __name__ == "__main__":
                 if(similarity > 0.5):
                     similarities[j][i] = similarity
     
-
-    complement = []
+    "Für jeden Film in r1 wird der Film aus r2 ausgewählt, mit der größten Ähnlichkeit"
+    duplicate = []
     for i in range(0, len(r1)):
         max_index = -1
         max_value = -1
@@ -62,36 +60,36 @@ if __name__ == "__main__":
             if(similarities[j][i] > max_value):
                 max_index = j
                 max_value = similarities[j][i]
-        complement.append(max_index)
+        duplicate.append(max_index)
         similarities[j] = [-1]*len(r1)
 
     """
     for i in range(0, len(r1)):
-        if complement[i] > -1:
+        if duplicate[i] > -1:
             print(r1[i].string())
-            print(similarities[complement[i]][i])
-            print(r2[complement[i]].string())
+            print(similarities[duplicate[i]][i])
+            print(r2[duplicate[i]].string())
             print('----------------------------------------')
         else:
             print(r1[i].string())
-            print(similarities[complement[i]][i])
-            print('----------------------------------------')"""
-    
-    complement = sorted(complement, reverse= True)
-    print("complement ", complement)
-    for index in complement:
+            print(similarities[duplicate[i]][i])
+            print('----------------------------------------')
+    """
+
+    "Löscht die Filme aus r2, welche ein identisches Objekt in r1 (wahrschienlich) besitzen"
+    duplicate = sorted(duplicate, reverse= True)
+    for index in duplicate:
         if index > -1:
-            #print("index ", index)
-            #print("len ", len(r2))
             del(r2[index])
     
+    print("Result length omdb", len(r1))
+    print("Result length tmdb ", len(r2))
     r = r1 + r2
     """
     for movie in r:
         print(movie.string())
         print('----------------------------------------')"""
 
-    print("all ", len(r))
 
    # er = SimilarityMeasure()
     #print(er.simJaro("batman", "begidfdasd batman"))

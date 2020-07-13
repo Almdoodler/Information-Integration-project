@@ -41,17 +41,18 @@ class OMDB:
                 for key in keys:
                     if key == "Production":
                         production = True
-                        movie.setProduction(dic['Production'])
+                        movie.setProduction(set(dic['Production']))
                     elif key == "Runtime":
                         runtime = True
                         movie.setRuntime(dic['Runtime'])
                     elif key == "Actors":
                         acts = True
-                        actors = [actor.strip(' ') for actor in dic['Actors'].split(',')]
+                        actors = {actor.strip(' ') for actor in dic['Actors'].split(',')}
                         movie.setActors(actors)
+                        
                 
                 if not production:
-                    movie.setProduction("N/A")
+                    movie.setProduction(set())
                 if not runtime:
                     movie.setRuntime(0)
                 if not acts :
