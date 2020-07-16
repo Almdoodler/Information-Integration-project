@@ -21,7 +21,7 @@ class TMDB:
         #       print(str(dic['total_results']) + "total number")
         movies = []
         if int(dic['total_results']) >= 1:
-            print('Fetching ' + str(dic['total_results']) + ' results on ' + str(dic['total_pages']) + ' pages')
+            print('Fetching ' + str(dic['total_results']) + ' results on ' + str(dic['total_pages']) + ' pages from TMDB')
             i = 1
             while i <= dic['total_pages']:
                 print('Fetching details for results on page: ' + str(i))
@@ -33,8 +33,9 @@ class TMDB:
         #                print(movie.getTitle() + " " + str(movie.getImbID()) + " " + str(movie.getYear()))
         #            print(len(movies))
         else:
+            print('Nothing found')
             movies = []
-        print('Finished fetching ' + str(dic['total_results']) + ' results')
+        print('Finished fetching ' + str(dic['total_results']) + ' results from TMDB')
         return movies
 
     def search_id(self, imdb_id):
@@ -43,6 +44,7 @@ class TMDB:
         movies = []
         if 'movie_results' in search_result:
             if len(search_result['movie_results']) >= 1:
+                print('Fetching result from TMDB')
                 movies.extend(create_movies(self, search_result['movie_results']))
             else:
                 print('Nothing found')

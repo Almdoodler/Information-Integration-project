@@ -16,10 +16,10 @@ class OMDB:
         movies = []
 
         if dic['Response'] == "False":
-            print('Failure')
+            print('Failed to fetch results from OMDB')
 
         elif int(dic['totalResults']) > 0:
-
+            print('Fetching results from OMDB')
             elements = self.cleanResult(dic['Search'], 'movie')
             pages = math.ceil(int(dic['totalResults']) / 10)
             for i in range(2, pages):
@@ -62,8 +62,8 @@ class OMDB:
                     movie.setRuntime(0)
                 if not acts:
                     movie.setActors([])
-                print(movie.string())
-
+                # print(movie.string())
+        print('Finished fetching results from OMDB')
         return movies
 
     """ Gibt Ergebnis für Film-Suchanfrage 'id' zurück. 
@@ -76,10 +76,10 @@ class OMDB:
         movies = []
 
         if dic['Response'] == "False":
-            print('Failure')
+            print('Failed to fetch results from OMDB')
 
         else:
-
+            print('Fetching results from OMDB')
             movie = self.createMovie(dic)
             production = False
             runtime = False
@@ -110,7 +110,7 @@ class OMDB:
             if not acts:
                 movie.setActors([])
             movies.append(movie)
-            print("movie ", movie.string())
+            # print("movie ", movie.string())
 
         return movies
 

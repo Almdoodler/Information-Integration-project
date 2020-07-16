@@ -27,7 +27,7 @@ class Mediator:
         print("Result length tmdb (r2)", len(r2))
         print("number of results ", len(r1) + len(r2))
 
-         "Kombiniert die movies von r1 und r2 nach der imdb id"
+        "Kombiniert die movies von r1 und r2 nach der imdb id"
         print('Removing duplicates based on imdb_id')
         for i in reversed(range(0, len(r1))):
             for j in reversed(range(0, len(r2))):
@@ -93,8 +93,8 @@ class Mediator:
                 print(similarities[duplicate[i]][i])
                 print('----------------------------------------')
         """
-
-        "Löscht die Filme aus r2, welche ein identisches Objekt in r1 (wahrschienlich) besitzen"
+        print('Removing duplicates based on similarity')
+        "Löscht die Filme aus r2, welche ein identisches Objekt in r1 (wahrscheinlich) besitzen"
         duplicate = sorted(duplicate, reverse= True)
         for index in duplicate:
             if index > -1:
@@ -109,8 +109,7 @@ class Mediator:
             print('----------------------------------------')
 
 
-# er = SimilarityMeasure()
-# print(er.simJaro("batman", "begidfdasd batman"))
-# print(er.similar("batman", "begidfdasd batman"))
-# print(er.get_jaccard_sim("batman", "begidfdasd batman"))
-# print(er.get_similarity("batman", "begidfdasd batman"))
+if __name__ == "__main__":
+    m = Mediator()
+    m.showData('tt2911666','2')
+
