@@ -51,9 +51,9 @@ class OMDB:
                     elif key == "Actors":
                         acts = True
                         actors = set()
-                        for actor in dic['Actors'].split():
+                        for actor in dic['Actors'].split(','):
                             if not actor == 'N/A':
-                                actors.add(actor.strip(' '))
+                                actors.add(actor.lstrip(' '))
                         movie.setActors(actors)
 
                 if not production:
@@ -72,7 +72,7 @@ class OMDB:
     def search_id(self, id):
         r = requests.get(self.movie_url + id)
         dic = r.json()
-        print(dic)
+        # print(dic)
         movies = []
 
         if dic['Response'] == "False":
@@ -97,7 +97,10 @@ class OMDB:
                     movie.setRuntime(dic['Runtime'])
                 elif key == "Actors":
                     acts = True
-                    actors = [actor.strip(' ') for actor in dic['Actors'].split(',')]
+                    actors = set()
+                    for actor in dic['Actors'].split(','):
+                        if not actor == 'N/A':
+                            actors.add(actor.lstrip(' '))
                     movie.setActors(actors)
 
             if not production:
