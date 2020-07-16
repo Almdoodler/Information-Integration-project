@@ -32,7 +32,4 @@ class Movie:
         self.actors = actors
     
     def string(self):
-        return "Title: " + str(self.title) + ", Year: " + str(self.year) + ", imdbID: " + str(self.imdbID) + ", runtime: " + str(self.runtTime) + ", Production: " + str(self.production) + ", actors: " + str(self.actors)
-
-    
-    
+        return "Title: " + str(self.title) + "\nYear:" + str(self.year) + "\nimdbID: " + str(self.imdbID) + "\nruntime: " + str(self.runtTime) + "\nProduction: " + str(', '.join(self.production)) + "\nactors: " + str(', '.join(self.actors))
