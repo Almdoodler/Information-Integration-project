@@ -40,8 +40,11 @@ class OMDB:
 
                 for key in keys:
                     if key == "Production":
-                        production = True
-                        movie.setProduction(set(dic['Production']))
+                        if not dic['Production']=='N/A':
+                            production = True
+                            pSet = set()
+                            pSet.add(dic['Production'])
+                            movie.setProduction(pSet)
                     elif key == "Runtime":
                         runtime = True
                         movie.setRuntime(dic['Runtime'])
@@ -84,7 +87,9 @@ class OMDB:
             for key in keys:
                 if key == "Production":
                     production = True
-                    movie.setProduction(dic['Production'])
+                    pSet = set()
+                    pSet.add(dic['Production'])
+                    movie.setProduction(pSet)
                 elif key == "Runtime":
                     runtime = True
                     movie.setRuntime(dic['Runtime'])
@@ -156,5 +161,5 @@ class OMDB:
          
 if __name__ == "__main__":
     s = OMDB()
-    s.search_id('tt8220550')
+    s.search_id('tt2911666')
     s.search_id('Naruto')

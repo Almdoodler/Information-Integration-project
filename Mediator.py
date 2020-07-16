@@ -17,9 +17,15 @@ if __name__ == "__main__":
     print("number of results ", len(r1) + len(r2))
     
     "Kombiniert die movies von r1 und r2 nach der imdb id"
+    print('Removing duplicates based on imdb_id')
     for i in reversed(range(0, len(r1))):
         for j in reversed(range(0, len(r2))):
             if r1[i].getImbID() == r2[j].getImbID():
+                # Setze actor und production in r1 auf die Vereinigung der Mengen von r1 und r2
+                actors = r1[i].getActors()|r2[j].getActors()
+                r1[i].setActors(actors)
+                production = r1[i].getProduction()|r2[j].getProduction()
+                r1[i].setProduction(production)
                 del(r2[j])
                 break
     print("Result length omdb", len(r1))
@@ -85,10 +91,10 @@ if __name__ == "__main__":
     print("Result length omdb", len(r1))
     print("Result length tmdb ", len(r2))
     r = r1 + r2
-    """
+
     for movie in r:
         print(movie.string())
-        print('----------------------------------------')"""
+        print('----------------------------------------')
 
 
    # er = SimilarityMeasure()
