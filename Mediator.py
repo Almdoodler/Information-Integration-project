@@ -27,15 +27,22 @@ class Mediator:
         print("Result length tmdb (r2)", len(r2))
         print("number of results ", len(r1) + len(r2))
 
-        "Kombiniert die movies von r1 und r2 nach der imdb id"
+         "Kombiniert die movies von r1 und r2 nach der imdb id"
+        print('Removing duplicates based on imdb_id')
         for i in reversed(range(0, len(r1))):
             for j in reversed(range(0, len(r2))):
                 if r1[i].getImbID() == r2[j].getImbID():
-                    del (r2[j])
+                    # Setze actor und production in r1 auf die Vereinigung der Mengen von r1 und r2
+                    actors = r1[i].getActors()|r2[j].getActors()
+                    r1[i].setActors(actors)
+                    production = r1[i].getProduction()|r2[j].getProduction()
+                    r1[i].setProduction(production)
+                    del(r2[j])
                     break
         print("Result length omdb", len(r1))
         print("Result length tmdb ", len(r2))
         print("number of results ", len(r1) + len(r2))
+  
 
         "Kombiniert die movies nach similiraity measure"
         sm = SimilarityMeasure()
@@ -88,18 +95,19 @@ class Mediator:
         """
 
         "Löscht die Filme aus r2, welche ein identisches Objekt in r1 (wahrschienlich) besitzen"
-        duplicate = sorted(duplicate, reverse=True)
+        duplicate = sorted(duplicate, reverse= True)
         for index in duplicate:
             if index > -1:
-                del (r2[index])
-
+                del(r2[index])
+        
         print("Result length omdb", len(r1))
         print("Result length tmdb ", len(r2))
         r = r1 + r2
-        """
+
         for movie in r:
             print(movie.string())
-            print('----------------------------------------')"""
+            print('----------------------------------------')
+
 
 # er = SimilarityMeasure()
 # print(er.simJaro("batman", "begidfdasd batman"))

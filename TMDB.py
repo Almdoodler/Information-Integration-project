@@ -106,7 +106,6 @@ def get_cast(self, element):
 if __name__ == "__main__":
     s = TMDB()
     # result = s.search('Batman')
-    result = s.search_id('tt0096895')
+    result = s.search_id('tt2911666')
     for element in result:
-        print(str(element.getTitle()) + " " + str(element.getYear()) + " " + str(element.getImbID()) + " " + str(
-            element.getRuntime()) + " " + str(element.getActors()) + " " + str(element.getProduction()))
+        print(element.string())
