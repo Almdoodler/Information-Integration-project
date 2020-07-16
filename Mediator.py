@@ -47,6 +47,7 @@ class Mediator:
         "Kombiniert die movies nach similiraity measure"
         sm = SimilarityMeasure()
         similarities = [[-1 for x in range(len(r1))] for y in range(len(r2))]
+        print("similirarities ", len(similarities))
         "Berechnet für jeden  film in r2 die Ähnlichkeit zu den Filmen in r1 und schreibt den Wert similarities ein"
         for j in range(0, len(r2)):
             similarity = 0
@@ -71,15 +72,19 @@ class Mediator:
 
         "Für jeden Film in r1 wird der Film aus r2 ausgewählt, mit der größten Ähnlichkeit"
         duplicate = []
-        for i in range(0, len(r1)):
-            max_index = -1
-            max_value = -1
-            for j in range(0, len(r2)):
-                if (similarities[j][i] > max_value):
-                    max_index = j
-                    max_value = similarities[j][i]
-            duplicate.append(max_index)
-            similarities[j] = [-1] * len(r1)
+        used = []
+        if len(similarities) > 0:
+            for i in range(0, len(r1)):
+                max_index = -1
+                max_value = -1
+                for j in range(0, len(r2)):
+                    if (similarities[j][i] > max_value):
+                        max_index = j
+                        max_value = similarities[j][i]
+                if max_index not in used:
+                    duplicate.append(max_index)
+                    similarities[j] = [-1] * len(r1)
+                    used.append(max_index)
 
         """
         for i in range(0, len(r1)):
@@ -97,6 +102,7 @@ class Mediator:
         "Löscht die Filme aus r2, welche ein identisches Objekt in r1 (wahrscheinlich) besitzen"
         duplicate = sorted(duplicate, reverse= True)
         for index in duplicate:
+            
             if index > -1:
                 del(r2[index])
         
@@ -112,4 +118,5 @@ class Mediator:
 if __name__ == "__main__":
     m = Mediator()
     m.showData('tt2911666','2')
+    #m.showData('John WIck','1')
 
