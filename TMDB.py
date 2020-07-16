@@ -100,8 +100,9 @@ def get_cast(self, element):
     r = requests.get(self.movie_url + str(element['id']) + '/credits' + self.api_key)
     cast = r.json()
     cast_members = set()
-    for member in cast['cast']:
-        cast_members.add(member['name'])
+    if 'cast' in cast:
+        for member in cast['cast']:
+            cast_members.add(member['name'])
     return cast_members
 
 
