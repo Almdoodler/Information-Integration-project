@@ -2,28 +2,39 @@ from Mediator import Mediator
 
 
 class Main:
+    # returns 1 if the input is a movie name and 2 if it's a imdb-ID
+    def getInputType(input):
+        prefix = input[:2]
+        suffix = input[2:]
+        if prefix == "tt":
+            try:
+                int(suffix)
+                return "2"
+            except ValueError:
+                return "1"
+        else:
+            return "1"
+
     if __name__ == '__main__':
         mediator = Mediator()
-
+        print("------------------------------------")
         print("Welcome to the Movie Integrator 3000")
         print("")
-        print("Please enter")
-        print("If you want to search by movie name please enter '1; <your movie>' (Example: '1; John Wick)'")
-        print("If you want to search by imdb-ID please enter '2; <imdb-ID>' (Example: '2; tt2911666')")
-        # Probiere den String zu Teilen, wird ein falscher Separator, kein Separator oder zuviele Separators verwendet
-        # wird ValueError geworfen
-        try:
-            dir, input = input().split(';')
-            input = input.lstrip()
+        while 1:
+            print("Please enter your movie name or imdb-ID")
+            print("Enter 'stop' to leave")
+            print("")
+
+            user_input = input()
+            user_input = user_input.lstrip()
+            if user_input == "stop":
+                break
+            dir = getInputType(user_input)
+
             if dir == "1":
                 print("Processing..")
-                mediator.showData(input, "1")
+                mediator.showData(user_input, "1")
 
             elif dir == "2":
                 print("Processing..")
-                mediator.showData(input, "2")
-        except ValueError:
-            print("Your input contained an invalid separator, no separator or multiple separators or contained no mode selector"
-                  ", allowed separators are ';'. Please try again! (ValueError)")
-        else:
-            print('Your input contained an invalid mode selector, allowed values are 1 and 2. Please try again! (InvalidModeError)')
+                mediator.showData(user_input, "2")
